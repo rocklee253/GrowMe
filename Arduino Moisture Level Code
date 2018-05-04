@@ -1,0 +1,15 @@
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  //value representing moisture
+  int moisturevalue = analogRead(A0);
+
+  //as percentage
+  int percentagemoisturevalue = map(moisturevalue, 1024, 0, 0, 100);
+  
+  //display moisture level percentage
+  Serial.println(percentagemoisturevalue);
+  delay(100);
+}
