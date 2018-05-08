@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".WaterTimer">
+
+    <TextView
+        android:id="@+id/waterMinsTextView"
+        android:layout_width="115dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Minutes "
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/waterSecondTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waterHourTextView"
+        app:layout_constraintVertical_bias="0.398" />
+
+    <TextView
+        android:id="@+id/waterHourTextView"
+        android:layout_width="115dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
+        android:text="Hours"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/waterSecondTextView"
+        android:layout_width="115dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="172dp"
+        android:layout_marginStart="8dp"
+        android:text="Seconds"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/waterHourTextField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:hint="Enter amount of hours"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/waterMinTextField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/waterHourTextView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/waterMinTextField"
+        android:layout_width="217dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="88dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="Enter amount of minutes"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/waterSecTextField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/waterMinsTextView" />
+
+    <EditText
+        android:id="@+id/waterSecTextField"
+        android:layout_width="217dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:hint="Enter amount of seconds"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toEndOf="@+id/waterSecondTextView"
+        tools:layout_editor_absoluteY="279dp" />
+
+    <Button
+        android:id="@+id/waterSetBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Set"
+        app:layout_constraintBottom_toTopOf="@+id/waterTextOutput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/waterSecTextField" />
+
+    <TextView
+        android:id="@+id/waterTextOutput"
+        android:layout_width="335dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
