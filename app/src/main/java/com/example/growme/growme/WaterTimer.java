@@ -1,5 +1,6 @@
 package com.example.growme.growme;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,22 +15,27 @@ public class WaterTimer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_water_timer);
 
+
+
         Button waterTimerSetButton = (Button) findViewById(R.id.waterSetBtn);
 
         waterTimerSetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                timeConverter waterTime = new timeConverter();
+                Sensor sensorData = new Sensor();
+                timeConverter timeConverter = new timeConverter();
                 EditText waterHours = (EditText) findViewById(R.id.waterHourTextField);
-                EditText waterMinutes = (EditText) findViewById(R.id.waterMinTextField);
-                EditText waterSeconds = (EditText) findViewById(R.id.waterSecTextField);
-                TextView waterOutputWindow = (TextView) findViewById(R.id.waterTextOutput);
-            // converting input from textboxes to an int
+                EditText waterMinutes = (EditText) findViewById(R.id.lightMinTextField);
+                EditText waterSeconds = (EditText) findViewById(R.id.lightSecTextField);
+                TextView waterOutputWindow = (TextView) findViewById(R.id.lightTextOutput);
+
+
+                 // converting input from textboxes windows into ints
                 int tempHours = Integer.parseInt(waterHours.getText().toString());
                 int tempMins = Integer.parseInt(waterMinutes.getText().toString());
                 int tempSecs= Integer.parseInt(waterSeconds.getText().toString());
 
-//validating input to ensure that not all of the input values are not 0
+                //validates input from user to insure not all values are zero
                 if( tempHours == 0)
                 {
                     if(tempMins == 0)
@@ -40,24 +46,22 @@ public class WaterTimer extends AppCompatActivity {
                         }
                     }
                 }
-                //sends verified time to time converter class
-                waterTime.convertToSeconds(tempHours,tempMins,tempSecs);
 
-                waterOutputWindow.setText(String.valueOf("Watering time has been set"));
 
-                //instance of time class
 
+                //validating that at least one variable is greater than zero
                 if( tempHours > 0 || tempMins > 0 || tempSecs > 0)
                 {
-                    //delays the water the plant command to arduino
-                    android.os.SystemClock.sleep(waterTime.convertToSeconds(tempHours,tempMins,tempSecs));
+
+                    //water timer converts the time into seconds then sends it to the sensor class
+                    sensorData.waterTime(timeConverter.convertToSeconds(tempHours,tempMins,tempSecs));
+
 
                     //code for sending the water the plant command to the arduino
 
 
 
 
-                    //displays the message in the text box signifying that the plant has been watered
 
                     waterOutputWindow.setText(String.valueOf("Watering time has been set"));
                 }
@@ -69,6 +73,15 @@ public class WaterTimer extends AppCompatActivity {
 
 
 
+            }
+        });
+
+        Button menu = (Button) findViewById(R.id.menuBtn1);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent menuIntent = new Intent(getApplicationContext(), MainMenu.class);
+                startActivity(menuIntent);
             }
         });
 
