@@ -1,0 +1,83 @@
+char incomingByte = 0;   // for incoming serial data (serial data send from the app)  
+int Vo; //temperature conversion value
+float R1 = 10000; //temperature conversion value
+float logR2, R2, T, Tc, Tf; //temperature conversion value
+float c1 = 1.009249522e-03, c2 = 2.378405444e-04, c3 = 2.019202697e-07; //temperature conversion value
+boolean lightStatus =false; //used to check if light is on or off 
+int light = 10; //pin is used for supplying power to light
+int ThermistorPin = 9;//pin is used for supplying power to temperature module 
+int waterValve = 8; //pin is used for supplying power to vavle
+void setup() {
+  Serial.begin(9600); //sets the Baud rate to allow communcation from app to arduino 
+  pinMode(light, OUTPUT);//setting the pin for output allowing it to output light
+
+}
+
+void loop() {
+  if(incomingByte == 1) 
+  {
+    //gathers requested data from temperature module and sends it back to serialport in order to be accesed via app
+      Vo = analogRead(ThermistorPin);
+      R2 = R1 * (1023.0 / (float)Vo - 1.0);
+      logR2 = log(R2);
+      T = (1.0 / (c1 + c2*logR2 + c3*logR2*logR2*logR2));
+      Tc = T - 273.15; 
+
+      //prints temperature to serialport to be accessed by the app
+      Serial.print("Temperature: "); 
+      Serial.print(Tc);
+   } 
+
+   if(incomingByte == 2) 
+  {
+      //requests moisture level reading from module
+      int moisturevalue = analogRead(A0);
+  
+      //converts moisture level to a percentage
+      int percentagemoisturevalue = map(moisturevalue, 1024, 0, 0, 100);
+    
+      //prints moisture level to serialport to be accessed by the app
+      Serial.print(percentagemoisturevalue);
+    
+    } 
+
+    if(incomingByte == 3) 
+  {
+
+    if(lightStatus == false){
+            digitalWrite(light, HIGH); //turns plant light on
+           lightStatus = true;//tells user plant light is on when requesting light status from app 
+           Serial.print("1");
+      }
+    
+     
+   
+    if(lightStatus == true){
+      
+           digitalWrite(light, LOW); //turns plant light off as it sends no voltage to the light
+          lightStatus = false;//tells user plant light is off when requesting light status from app 
+         Serial.print("0");
+      }
+    
+   
+   }  
+
+    if(incomingByte == 4) 
+  {
+    
+     digitalWrite(waterValve, HIGH); //opens water valve
+
+     delay(5000);//keeps water valve open for 5 seconds
+
+     digitalWrite(waterValve, LOW); //closes valve 
+
+     Serial.print("Plant has been watered");//sends message back to app alerting the user the plant has been watered
+   
+   } 
+
+   
+  
+}
+
+
+© 2018 GitHub, Inc.
